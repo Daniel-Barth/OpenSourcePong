@@ -28,88 +28,102 @@ function renderBall(x, y) {
   ctx.fill();
 }
 
-let posX = 500;
-let posY = 50;
-let vX = +2;
-let vY = +2;
+// ball
+let ballPosX = 500;
+let ballPosY = 50;
+let ballVelocityX = +2;
+let ballVelocityY = +2;
+// paddles
 let leftPaddleY = 20;
-let paddleX = 35;
+let leftPaddleX = 35;
 let rightPaddleY = 20;
-let secondPaddleX = 35;
+let rightPaddleX = 35;
+let paddlesVelocity = 10
+
+document.addEventListener("keypress", (event) => {
+  if (event.key === "s") {
+    leftPaddleY += paddlesVelocity;
+  }
+  if (event.key === "w") {
+    leftPaddleY -= paddlesVelocity;
+  }
+  console.log(leftPaddleY);
+  console.log(rightPaddleY);
+});
+
+document.addEventListener("keypress", (event) => {
+  if (event.key === "k") {
+    rightPaddleY += paddlesVelocity;
+  }
+  if (event.key === "o") {
+    rightPaddleY -= paddlesVelocity;
+  }
+  console.log(leftPaddleY);
+  console.log(rightPaddleY);
+});
+
+
 setInterval(() => {
   renderBackground();
-  renderBall(posX, posY);
+  renderBall(ballPosX, ballPosY);
+
   renderPaddle(15, leftPaddleY, "green");
   renderPaddle(665, rightPaddleY, "red");
-  posX += vX;
-  posY += vY;
-  // if (posX + radius === canvasWidth || posX - radius === 0) {
-  //   vX = -vX
+
+  // move the ball
+  ballPosX += ballVelocityX;
+  ballPosY += ballVelocityY;
+  // if (ballPosX + radius === canvasWidth || ballPosX - radius === 0) {
+  //   ballVelocityX = -ballVelocityX
   // }
 
-  if (posX + radius === canvasWidth) {
-    vX = -2;
+  // bounce the ball when it reaches the canvas borders
+  if (ballPosX + radius === canvasWidth) {
+    ballVelocityX = -2;
   }
-  if (posX - radius === 0) {
-    vX = +2;
+  if (ballPosX - radius === 0) {
+    ballVelocityX = +2;
   }
-  if (posY + radius === canvasHeight) {
-    vY = -2;
+  if (ballPosY + radius === canvasHeight) {
+    ballVelocityY = -2;
   }
-  if (posY - radius === 0) {
-    vY = +2;
+  if (ballPosY - radius === 0) {
+    ballVelocityY = +2;
   }
   /*
-  if (posY - radius === leftPaddleY + paddleHeight && posX + radius === paddleX +paddleWidth) {
-    vX = +2
-    vY = +2
+  if (ballPosY - radius === leftPaddleY + paddleHeight && ballPosX + radius === leftPaddleX +paddleWidth) {
+    ballVelocityX = +2
+    ballVelocityY = +2
   }
 
-  if (posY - radius >= secondPaddleHeight && posY + radius <= secondPaddleHeight) {
-    vY = +2
+  if (ballPosY - radius >= secondPaddleHeight && ballPosY + radius <= secondPaddleHeight) {
+    ballVelocityY = +2
   }
-  if (posX - radius >= secondPaddleWidth && posX + radius <= secondPaddleWidth) {
-    vX = +2
+  if (ballPosX - radius >= secondPaddleWidth && ballPosX + radius <= secondPaddleWidth) {
+    ballVelocityX = +2
   } 
 
 }, 17); 
 */
-  // if (posX + radius === leftPaddleY && 20) {
-  //   vX = -2
+  // if (ballPosX + radius === leftPaddleY && 20) {
+  //   ballVelocityX = -2
   // }
-  // // if (posX - radius === 0) {
-  // //   vX = +2
+  // // if (ballPosX - radius === 0) {
+  // //   ballVelocityX = +2
   // // }
   // // }, 17);
+  
+  // create borders for the paddles
+  if (leftPaddleY <= 0) {
+    leftPaddleY = 0;
+  } else if (leftPaddleY >= 500) {
+    leftPaddleY = 500;
+  }
 
-  document.addEventListener("keypress", (event) => {
-    if (event.key === "s") {
-      leftPaddleY += 1;
-    }
-    if (event.key === "w") {
-      leftPaddleY -= 1;
-    }
-  });
+  if (rightPaddleY <= 0) {
+    rightPaddleY = 0;
+  } else if (rightPaddleY >= 500) {
+    rightPaddleY = 500;
+  }
 
-  document.addEventListener("keypress", (event) => {
-    if (event.key === "k") {
-      rightPaddleY += 1;
-    }
-    if (event.key === "o") {
-      rightPaddleY -= 1;
-    }
-  });
-  /*
-if (leftPaddleY <= 0) {
-  leftPaddleY = 0;
-} else if (leftPaddleY >= 500) {
-  leftPaddleY = 500;
-}
-
-if (rightPaddleY <= 0) {
-  rightPaddleY = 0;
-} else if (rightPaddleY >= 500) {
-  rightPaddleY = 500;
-}
-*/
 });
