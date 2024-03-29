@@ -15,16 +15,9 @@ function renderBackground() {
 
 const paddleHeight = 90;
 const paddleWidth = 20;
-function renderPaddle(y) {
-  ctx.fillStyle = "green";
-  ctx.fillRect(15, y, paddleWidth, paddleHeight);
-}
-
-const secondPaddleHeight = 90;
-const secondPaddleWidth = 20;
-function renderSecondPaddle(y) {
-  ctx.fillStyle = "red";
-  ctx.fillRect(665, y, secondPaddleWidth, secondPaddleHeight);
+function renderPaddle(x, y, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, paddleWidth, paddleHeight);
 }
 
 //render circles
@@ -39,15 +32,15 @@ let posX = 500;
 let posY = 50;
 let vX = +2;
 let vY = +2;
-let paddleY = 20;
+let leftPaddleY = 20;
 let paddleX = 35;
-let secondPaddleY = 20;
+let rightPaddleY = 20;
 let secondPaddleX = 35;
 setInterval(() => {
   renderBackground();
   renderBall(posX, posY);
-  renderPaddle(paddleY);
-  renderSecondPaddle(secondPaddleY);
+  renderPaddle(15, leftPaddleY, "green");
+  renderPaddle(665, rightPaddleY, "red");
   posX += vX;
   posY += vY;
   // if (posX + radius === canvasWidth || posX - radius === 0) {
@@ -67,7 +60,7 @@ setInterval(() => {
     vY = +2;
   }
   /*
-  if (posY - radius === paddleY + paddleHeight && posX + radius === paddleX +paddleWidth) {
+  if (posY - radius === leftPaddleY + paddleHeight && posX + radius === paddleX +paddleWidth) {
     vX = +2
     vY = +2
   }
@@ -81,7 +74,7 @@ setInterval(() => {
 
 }, 17); 
 */
-  // if (posX + radius === paddleY && 20) {
+  // if (posX + radius === leftPaddleY && 20) {
   //   vX = -2
   // }
   // // if (posX - radius === 0) {
@@ -91,32 +84,32 @@ setInterval(() => {
 
   document.addEventListener("keypress", (event) => {
     if (event.key === "s") {
-      paddleY += 10;
+      leftPaddleY += 1;
     }
     if (event.key === "w") {
-      paddleY -= 10;
+      leftPaddleY -= 1;
     }
   });
 
   document.addEventListener("keypress", (event) => {
     if (event.key === "k") {
-      secondPaddleY += 10;
+      rightPaddleY += 1;
     }
     if (event.key === "o") {
-      secondPaddleY -= 10;
+      rightPaddleY -= 1;
     }
   });
   /*
-if (paddleY <= 0) {
-  paddleY = 0;
-} else if (paddleY >= 500) {
-  paddleY = 500;
+if (leftPaddleY <= 0) {
+  leftPaddleY = 0;
+} else if (leftPaddleY >= 500) {
+  leftPaddleY = 500;
 }
 
-if (secondPaddleY <= 0) {
-  secondPaddleY = 0;
-} else if (secondPaddleY >= 500) {
-  secondPaddleY = 500;
+if (rightPaddleY <= 0) {
+  rightPaddleY = 0;
+} else if (rightPaddleY >= 500) {
+  rightPaddleY = 500;
 }
 */
 });
